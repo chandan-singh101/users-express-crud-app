@@ -4,8 +4,12 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:8081"
+// CORS configuration - update with your frontend URL in production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.FRONTEND_URL 
+    : "http://localhost:8081",
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
@@ -17,7 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
-db.sequelize.sync()
+
+// Database synchronization - careful with force:true in production
+db.sequelize.sync({ force: false })
   .then(() => {
     console.log("Synced db.");
   })
@@ -30,7 +36,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to User Management API." });
 });
 
-// ✅ Use Users route instead of Tutorial
+// Use Users route
 require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
